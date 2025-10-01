@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Menú Cubano</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <h1>Menú Cubano</h1>
+    <div class="controls">
+      <label for="lang" data-i18n="languageLabel">Idioma</label>
+      <select id="lang">
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section id="menu" class="menu-grid" aria-label="Lista de platos"></section>
+
+    <aside class="cart" aria-label="Carrito">
+      <h2 id="cartTitle" data-i18n="cartTitle">Tu pedido</h2>
+
+      <div class="customer-info">
+        <h3 id="customerTitle" data-i18n="customerInfoTitle">Datos del cliente</h3>
+        <label>
+          <span data-i18n="firstName">Nombre</span>
+          <input id="firstName" type="text" required />
+        </label>
+        <label>
+          <span data-i18n="lastName">Apellidos</span>
+          <input id="lastName" type="text" required />
+        </label>
+        <label class="consent">
+          <input id="consentCheckbox" type="checkbox" />
+          <span id="consentText" data-i18n="consentText">Acepto que mis datos se usen para procesar este pedido.</span>
+        </label>
+      </div>
+
+      <div id="cart-items" class="cart-items"></div>
+
+      <div class="cart-summary">
+        <div><strong>Total:</strong> <span id="total">€0.00</span></div>
+        <button id="shareWhatsApp">Compartir en WhatsApp</button>
+        <button id="printTicket">Imprimir ticket</button>
+        <button id="exportCsv" data-i18n="exportCsv">Exportar CSV</button>
+        <button id="copyClipboard" data-i18n="copyClipboard">Copiar al portapapeles</button>
+      </div>
+    </aside>
+  </main>
+
+  <template id="dish-template">
+    <article class="dish-card">
+      <h3 class="dish-name"></h3>
+      <p class="dish-desc"></p>
+      <div class="dish-footer">
+        <div class="price"></div>
+        <div>
+          <button class="add-btn" data-i18n="addToCart">Añadir</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
