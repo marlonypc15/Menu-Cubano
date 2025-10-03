@@ -40,4 +40,4 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Post deployment
-        run: echo "Deployed: ${{ steps.deployment.outputs.page_url }}"
+        run: echo "Deployed: ${{steps.deployment.outputs.page_url}}"
