@@ -231,4 +231,25 @@ printBtn.addEventListener('click', printTicket);
 // init
 applyTranslations(state.lang);
 renderMenu();
+
 renderCart();
+async function sendOrderToBackend(){
+  const customer = { firstName: firstNameEl.value.trim(), lastName: lastNameEl.value.trim() };
+  const items = Object.values(state.cart);
+  const total = items.reduce((s,it)=> s + it.qty * it.price, 0);
+
+  const payload = { customer, items, total };
+
+  const res = await fetch('http://localhost:3000/api/orders', {
+    method: 'POST',
+    headers: { 'Content-Type':'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+  if(data.ok){
+    alert("Pedido enviado y notificación enviada por email");
+  } else {
+    alert("Hubo un problema al enviar el pedido");
+  }
+}
