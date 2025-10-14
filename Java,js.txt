@@ -1,0 +1,28 @@
+// Genera texto del ticket
+function buildTicketText(order, customer, total){
+  let lines = [];
+  lines.push(`Pedido - ${new Date().toLocaleString()}`);
+  lines.push(`Cliente: ${customer.firstName} ${customer.lastName}`);
+  lines.push('------------------------');
+  order.forEach(it=>{
+    lines.push(`${it.qty}x ${it.name} - €${(it.price*it.qty).toFixed(2)}`);
+    if(it.tags && it.tags.length) lines.push(`  Nota: ${it.tags.join('; ')}`);
+  });
+  lines.push('------------------------');
+  lines.push(`Total: €${total.toFixed(2)}`);
+  return lines.join('\n');
+}
+// Abrir WhatsApp con mensaje pre-llenado
+function shareViaWhatsApp(text){
+  const encoded = encodeURIComponent(text);
+  const waUrl = `https://wa.me/?text=${encoded}`;
+  window.open(waUrl, '_blank');
+}
+// Mostrar diálogo de impresión (cliente)
+function printTicket(text){
+  const printWin = window.open('', '_blank', 'width=400,height=600');
+  printWin.document.write(`<pre style="font-family:monospace;white-space:pre-wrap">${text}</pre>`);
+  printWin.document.close();
+  printWin.focus();
+  printWin.print();
+}

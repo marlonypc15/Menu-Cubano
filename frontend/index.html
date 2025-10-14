@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Kuba con K - Menú</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h1 { color: #c62828; }
+    .product { margin: 10px 0; }
+    .cart { margin-top: 20px; border-top: 1px solid #ccc; padding-top: 10px; }
+    .cart ul { list-style: none; padding: 0; }
+    .cart li { margin: 5px 0; }
+    #paypal-button-container { margin-top: 20px; }
+  </style>
+  <!-- SDK de PayPal (reemplaza TU_CLIENT_ID por el tuyo de PayPal Sandbox o Live) -->
+  <script src="https://www.paypal.com/sdk/js?client-id=paypal.me/marlonypc15&currency=EUR"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <h1>Menú de Kuba con K</h1>
+
+  <div>
+    <label>Nombre: <input id="firstName"></label>
+    <label>Apellido: <input id="lastName"></label>
+  </div>
+
+  <h2>Platos principales</h2>
+
+  <div class="product">
+    <button class="add-to-cart" data-id="1" data-name="Bistec de cerdo frito" data-price="13">
+      Bistec de cerdo frito (€13) <br>
+      <small>Jugoso bistec de cerdo frito, acompañado de congrí, cebolla caramelizada y viandas fritas.</small>
+    </button>
+  </div>
+
+  <div class="product">
+    <button class="add-to-cart" data-id="2" data-name="Ropa Vieja" data-price="12">
+      Ropa Vieja (€12) <br>
+      <small>Carne de res desmenuzada en salsa con pimientos y cebollas, con arroz blanco, frijoles colorados y tostones.</small>
+    </button>
+  </div>
+
+  <!-- Aquí puedes añadir más platos de tu menú real si los tienes en la página -->
+
+  <div class="cart">
+    <h3>Carrito</h3>
+    <ul id="cart-list"></ul>
+    <p>Total: €<span id="total">0.00</span></p>
+  </div>
+
+  <div id="paypal-button-container"></div>
+</body>
+</html>
