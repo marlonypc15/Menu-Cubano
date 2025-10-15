@@ -130,4 +130,34 @@ function buildOrderSummaryText() {
   const total = getCartTotalNumber();
   let lines = [];
   lines.push(`Pedido Menú Cubano`);
-  lines.push(`Cliente: ${first
+  lines.push(`Cliente: ${firstName} ${lastName}`);
+  for (const item of cart.values()) {
+    lines.push(`- ${item.name} x${item.qty} = ${formatEUR(item.price * item.qty)}`);
+  }
+  lines.push(`Total: ${formatEUR(total)}`);
+  return lines.join('\n');
+}
+
+function setupShareButtons() {
+  const btnWhats = document.getElementById('shareWhatsApp');
+  btnWhats.addEventListener('click', () => {
+    const text = buildOrderSummaryText();
+    const url = `https://wa.me/4917656925042?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  });
+}
+
+// ====== Inicialización ======
+function init() {
+  renderMenu();
+  renderCart();
+  setupShareButtons();
+
+  const langSelect = document.getElementById("lang");
+  applyTranslations(langSelect.value);
+  langSelect.addEventListener("change", e => {
+    applyTranslations(e.target.value);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', init);
