@@ -51,10 +51,10 @@ function applyTranslations(lang) {
 
 // ====== Datos del menú ======
 const dishes = [
-  { id: 'pollo', name: 'Pollo en Salsa Criolla', desc: 'Tierno pollo en salsa criolla acompañado de arroz blanco.', price: 12.50 },
-  { id: 'cerdo', name: 'Bistec de Cerdo Frito', desc: 'Bistec de cerdo frito acompañado de arroz blanco y maduros fritos.', price: 12.00 },
-  { id: 'ropa', name: 'Ropa Vieja', desc: 'Carne deshebrada en salsa criolla con arroz blanco y maduros fritos.', price: 13.00 },
-  { id: 'yuca', name: 'Opción Vegana: Yuca con Mojo', desc: 'Yuca con mojo, coleslaw y arroz blanco.', price: 7.50 }
+  { id: 'pollo', name: 'Pollo en Salsa Criolla', desc: 'Tierno pollo en salsa criolla acompañado de arroz blanco.', price: 22.50 },
+  { id: 'cerdo', name: 'Bistec de Cerdo Frito', desc: 'Bistec de cerdo frito acompañado de arroz blanco y maduros fritos.', price: 25.50 },
+  { id: 'ropa', name: 'Ropa Vieja', desc: 'Carne deshebrada en salsa criolla con arroz blanco y maduros fritos.', price: 25.50 },
+  { id: 'yuca', name: 'Opción Vegana: Yuca con Mojo', desc: 'Yuca con mojo, coleslaw y arroz blanco.', price: 17.50 }
 ];
 
 const cart = new Map();
