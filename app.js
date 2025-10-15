@@ -51,10 +51,46 @@ function applyTranslations(lang) {
 
 // ====== Datos del menú ======
 const dishes = [
-  { id: 'pollo', name: 'Pollo en Salsa Criolla', desc: 'Tierno pollo en salsa criolla acompañado de arroz blanco.', price: 22.50 },
-  { id: 'cerdo', name: 'Bistec de Cerdo Frito', desc: 'Bistec de cerdo frito acompañado de arroz blanco y maduros fritos.', price: 25.50 },
-  { id: 'ropa', name: 'Ropa Vieja', desc: 'Carne deshebrada en salsa criolla con arroz blanco y maduros fritos.', price: 25.50 },
-  { id: 'yuca', name: 'Opción Vegana: Yuca con Mojo', desc: 'Yuca con mojo, coleslaw y arroz blanco.', price: 17.50 }
+  {
+    id: 'pollo',
+    name: { es: 'Pollo en Salsa Criolla', de: 'Huhn in Criolla-Sauce', en: 'Chicken in Creole Sauce' },
+    desc: {
+      es: 'Tierno pollo en salsa criolla acompañado de arroz blanco.',
+      de: 'Zartes Huhn in Criolla-Sauce mit weißem Reis.',
+      en: 'Tender chicken in creole sauce served with white rice.'
+    },
+    price: 22.50
+  },
+  {
+    id: 'cerdo',
+    name: { es: 'Bistec de Cerdo Frito', de: 'Gebratenes Schweinesteak', en: 'Fried Pork Steak' },
+    desc: {
+      es: 'Bistec de cerdo frito acompañado de arroz blanco y maduros fritos.',
+      de: 'Gebratenes Schweinesteak mit weißem Reis und gebratenen Kochbananen.',
+      en: 'Fried pork steak served with white rice and fried sweet plantains.'
+    },
+    price: 25.50
+  },
+  {
+    id: 'ropa',
+    name: { es: 'Ropa Vieja', de: 'Ropa Vieja (Rindfleisch)', en: 'Ropa Vieja (Shredded Beef)' },
+    desc: {
+      es: 'Carne deshebrada en salsa criolla con arroz blanco y maduros fritos.',
+      de: 'Zerfaserter Rindfleisch-Eintopf in Criolla-Sauce mit weißem Reis und Kochbananen.',
+      en: 'Shredded beef in creole sauce with white rice and fried plantains.'
+    },
+    price: 25.50
+  },
+  {
+    id: 'yuca',
+    name: { es: 'Opción Vegana: Yuca con Mojo', de: 'Vegane Option: Yuca mit Mojo', en: 'Vegan Option: Yucca with Mojo' },
+    desc: {
+      es: 'Yuca con mojo, coleslaw y arroz blanco.',
+      de: 'Yuca mit Mojo, Krautsalat und weißem Reis.',
+      en: 'Yucca with mojo sauce, coleslaw, and white rice.'
+    },
+    price: 17.50
+  }
 ];
 
 const cart = new Map();
