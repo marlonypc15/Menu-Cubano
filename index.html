@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Menú Cubano</title>
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- SDK de PayPal: usa tu Client ID de Sandbox -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AX1swcDLIFLXIFB9B0U_yBtTKB0pfQR37lNrCrRqGPizbwQEVIfrp2aG9wHYPFZx7mckQT2-YKZY85QY&currency=EUR"></script>
 </head>
 <body>
   <header class="topbar">
@@ -48,7 +51,13 @@
         <button id="shareWhatsApp">Compartir en WhatsApp</button>
         <button id="printTicket">Imprimir ticket</button>
         <button id="exportCsv" data-i18n="exportCsv">Exportar CSV</button>
-        <button id="copyClipboard" data-i18n="copyClipboard">Copiar al portapapeles</button>
+      </div>
+
+      <!-- Bloque de PayPal -->
+      <div id="paypal-container" class="paypal-block">
+        <h3 data-i18n="payWithPaypal">Pagar con PayPal</h3>
+        <div id="paypal-buttons"></div>
+        <div id="paypal-status" class="status info" aria-live="polite"></div>
       </div>
     </aside>
   </main>

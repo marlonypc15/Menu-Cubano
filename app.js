@@ -1,234 +1,308 @@
-// I18N
-const I18N = {
-  en:{languageLabel:'Language',addToCart:'Add to cart',cartTitle:'Your order',customerInfoTitle:'Customer info',firstName:'First name',lastName:'Last name',consentText:'I consent to use my data to process this order.',exportCsv:'Export CSV',copyClipboard:'Copy to clipboard',remove:'Remove',qtyTimes:'×',takeAwayTag:'Takeaway',noOnionTag:'No onion',shareWhatsApp:'Share via WhatsApp',printTicket:'Print ticket'},
-  de:{languageLabel:'Sprache',addToCart:'In den Warenkorb',cartTitle:'Ihre Bestellung',customerInfoTitle:'Kundendaten',firstName:'Vorname',lastName:'Nachname',consentText:'Ich stimme zu, dass meine Daten zur Bearbeitung dieser Bestellung verwendet werden.',exportCsv:'CSV herunterladen',copyClipboard:'In die Zwischenablage',remove:'Entfernen',qtyTimes:'×',takeAwayTag:'Zum Mitnehmen',noOnionTag:'Ohne Zwiebel',shareWhatsApp:'Per WhatsApp teilen',printTicket:'Ticket drucken'},
-  es:{languageLabel:'Idioma',addToCart:'Añadir al carrito',cartTitle:'Tu pedido',customerInfoTitle:'Datos del cliente',firstName:'Nombre',lastName:'Apellidos',consentText:'Acepto que mis datos se usen para procesar este pedido.',exportCsv:'Exportar CSV',copyClipboard:'Copiar al portapapeles',remove:'Eliminar',qtyTimes:'×',takeAwayTag:'Para llevar',noOnionTag:'Sin cebolla',shareWhatsApp:'Compartir en WhatsApp',printTicket:'Imprimir ticket'}
-};
-
-// Menu data (trilingual)
-const MENU = [
-  {id:'en1',lang:'en',name:'Chicken in Creole Sauce with Yellow Rice, Fresh Tomatoes 🍅 and Onions 🧅',desc:'Tender chicken simmered in a traditional Cuban tomato-based sauce. Served with aromatic yellow rice.',price:22.50},
-  {id:'en2',lang:'en',name:'Fried Pork Steak with Congri Rice, Caramelized Onions, Tomato & Fried Root Vegetables',desc:'Crispy fried pork served with savory rice and black beans, sweet caramelized onions, and a side of fried yuca and sweet plantain.',price:25.50},
-  {id:'en3',lang:'en',name:'Ropa Vieja with White Rice, Red Beans & Tostones',desc:"Classic Cuban 'shredded beef stew' in a rich sauce with peppers and onions. Accompanied by white rice, red beans, and crispy fried plantains.",price:25.50},
-  {id:'en4',lang:'en',name:'Veggie: Yuca with Mojo Sauce, Onions & Tomatoes',desc:"Soft yuca root smothered in a zesty garlic-citrus 'mojo' marinade, topped with fresh onions and tomatoes.",price:17.50},
-  {id:'de1',lang:'de',name:'Huhn in Kreolischer Soße mit Gelbem Reis, Tomaten 🍅 und Zwiebeln 🧅',desc:'Zartes Hähnchen in einer traditionellen kubanischen Tomatensoße geschmort. Serviert mit aromatischem gelbem Reis.',price:22.50},
-  {id:'de2',lang:'de',name:'Gebratenes Schweinesteak mit Congri Reis, karamellisierten Zwiebeln, Tomate & frittierten Wurzelgemüsen',desc:'Knusprig gebratenes Schweinefleisch mit würzigem Reis mit schwarzen Bohnen, süßen karamellisierten Zwiebeln und einer Beilage aus frittierter Yuca und Kochbananen.',price:25.50},
-  {id:'de3',lang:'de',name:'Ropa Vieja mit Weißem Reis, Kidneybohnen & Tostones',desc:"Das klassische kubanische Gericht 'zerkleinertes Rindfleisch' in einer kräftigen Soße mit Paprika und Zwiebeln. Dazu weißer Reis, rote Bohnen und knusprige frittierte Kochbananen.",price:25.50},
-  {id:'de4',lang:'de',name:'Veggie: Yuca mit Mojo-Soße, Zwiebeln & Tomaten',desc:"Weiche Yuca-Wurzel, übergossen mit einer pikanten Knoblauch-Zitrus-Marinade ('Mojo'), verfeinert mit frischen Zwiebeln und Tomaten.",price:17.50},
-  {id:'es1',lang:'es',name:'Pollo en Salsa Criolla con Arroz Amarillo, Tomate 🍅 y Cebolla 🧅',desc:'Tierno pollo cocinado en una salsa criolla cubana a base de tomate. Servido con arroz amarillo aromático.',price:22.50},
-  {id:'es2',lang:'es',name:'Bistec de Cerdo Frito con Congrí, Cebolla Caramelizada, Tomate y Viandas Fritas',desc:'Jugoso bistec de cerdo frito, acompañado de nuestro sabroso congrí (arroz con frijoles negros), dulce cebolla caramelizada y viandas fritas (yuca y plátano).',price:25.50},
-  {id:'es3',lang:'es',name:'Ropa Vieja con Arroz Blanco, Frijoles Colorados y Tostones',desc:'Clásico cubano: carne de res desmenuzada en una sabrosa salsa con pimientos y cebollas. Acompañado de arroz blanco, frijoles colorados y tostones (plátanos verdes fritos).',price:25.50},
-  {id:'es4',lang:'es',name:'Opción Vegana: Yuca con Mojo, Cebolla y Tomate',desc:"Yuca blanda bañada en nuestra marinada 'mojo' de ajo y cítricos, acompañada de cebolla y tomate fresco.",price:17.50}
+// ====== Datos del menú (puedes adaptar precios y textos) ======
+const dishes = [
+  {
+    id: 'pollo-criolla',
+    name: 'Pollo en Salsa Criolla',
+    desc: 'Tierno pollo en salsa criolla con arroz amarillo, tomate y cebolla.',
+    price: 22.50
+  },
+  {
+    id: 'bistec-cerdo',
+    name: 'Bistec de Cerdo Frito',
+    desc: 'Jugoso bistec de cerdo frito con congrí, cebolla caramelizada, tomate y viandas fritas.',
+    price: 23.00
+  },
+  {
+    id: 'ropa-vieja',
+    name: 'Ropa Vieja',
+    desc: 'Ropa vieja con arroz blanco, frijoles colorados y tostones crujientes.',
+    price: 20.00
+  },
+  {
+    id: 'vegano-yuca',
+    name: 'Opción Vegana: Yuca con Mojo',
+    desc: 'Yuca con mojo cubano, cebolla y tomate fresco.',
+    price: 17.50
+  }
 ];
 
-const state = { lang:'es', cart:{} };
+// ====== Estado del carrito ======
+const cart = new Map(); // id -> { id, name, price, qty }
 
-const menuEl = document.getElementById('menu');
-const template = document.getElementById('dish-template');
-const langSelect = document.getElementById('lang');
-const cartItemsEl = document.getElementById('cart-items');
-const totalEl = document.getElementById('total');
-const exportBtn = document.getElementById('exportCsv');
-const copyBtn = document.getElementById('copyClipboard');
-const shareBtn = document.getElementById('shareWhatsApp');
-const printBtn = document.getElementById('printTicket');
-const firstNameEl = document.getElementById('firstName');
-const lastNameEl = document.getElementById('lastName');
-const consentEl = document.getElementById('consentCheckbox');
-
-langSelect.value = state.lang;
-langSelect.addEventListener('change', e=>{
-  state.lang = e.target.value;
-  applyTranslations(state.lang);
-  renderMenu();
-  renderCart();
-});
-
-function formatPrice(p){ return new Intl.NumberFormat('de-DE',{style:'currency',currency:'EUR'}).format(p); }
-
-function applyTranslations(lang){
-  const dict = I18N[lang] || I18N.es;
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key = el.getAttribute('data-i18n');
-    if(dict[key]) el.textContent = dict[key];
-  });
-  if(shareBtn) shareBtn.textContent = dict.shareWhatsApp;
-  if(printBtn) printBtn.textContent = dict.printTicket;
+// ====== Utilidades ======
+function formatEUR(value) {
+  return `€${value.toFixed(2)}`;
 }
 
-function renderMenu(){
-  menuEl.innerHTML = '';
-  const list = MENU.filter(d=>d.lang === state.lang);
-  list.forEach(d=>{
-    const node = template.content.cloneNode(true);
+function getCartTotalNumber() {
+  let total = 0;
+  for (const item of cart.values()) {
+    total += item.price * item.qty;
+  }
+  return Number(total.toFixed(2));
+}
+
+function updateTotalDisplay() {
+  const totalEl = document.getElementById('total');
+  const total = getCartTotalNumber();
+  totalEl.textContent = formatEUR(total);
+
+  // Cada vez que cambie el total, re-renderiza PayPal
+  renderPaypalButtons();
+}
+
+function setPaypalStatus(msg, type = 'info') {
+  const el = document.getElementById('paypal-status');
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `status ${type}`;
+}
+
+function canPayWithPaypal() {
+  const consent = document.getElementById('consentCheckbox')?.checked;
+  const firstName = document.getElementById('firstName')?.value.trim();
+  const lastName = document.getElementById('lastName')?.value.trim();
+  const total = getCartTotalNumber();
+  return Boolean(consent && firstName && lastName && total > 0);
+}
+
+// ====== Render del menú ======
+function renderMenu() {
+  const list = document.getElementById('menu');
+  const tpl = document.getElementById('dish-template');
+
+  dishes.forEach(d => {
+    const node = tpl.content.cloneNode(true);
     node.querySelector('.dish-name').textContent = d.name;
     node.querySelector('.dish-desc').textContent = d.desc;
-    node.querySelector('.price').textContent = formatPrice(d.price);
-    const addBtn = node.querySelector('.add-btn');
-    addBtn.textContent = I18N[state.lang].addToCart;
-    addBtn.addEventListener('click', ()=> addToCart(d.id));
-    menuEl.appendChild(node);
+    node.querySelector('.price').textContent = formatEUR(d.price);
+    const btn = node.querySelector('.add-btn');
+    btn.addEventListener('click', () => addToCart(d));
+    list.appendChild(node);
   });
 }
 
-function addToCart(id){
-  const item = MENU.find(m=>m.id===id);
-  if(!item) return;
-  if(!state.cart[id]) state.cart[id] = { ...item, qty:0, tags:[] };
-  state.cart[id].qty += 1;
+// ====== Lógica del carrito ======
+function addToCart(dish) {
+  const existing = cart.get(dish.id);
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.set(dish.id, { id: dish.id, name: dish.name, price: dish.price, qty: 1 });
+  }
   renderCart();
 }
 
-function removeFromCart(id){ delete state.cart[id]; renderCart(); }
-
-function changeQty(id, delta){
-  if(!state.cart[id]) return;
-  state.cart[id].qty += delta;
-  if(state.cart[id].qty <= 0) removeFromCart(id);
+function removeFromCart(id) {
+  const item = cart.get(id);
+  if (!item) return;
+  item.qty -= 1;
+  if (item.qty <= 0) cart.delete(id);
   renderCart();
 }
 
-function toggleTag(id, tag){
-  const it = state.cart[id];
-  if(!it) return;
-  const idx = it.tags.indexOf(tag);
-  if(idx === -1) it.tags.push(tag); else it.tags.splice(idx,1);
+function deleteFromCart(id) {
+  cart.delete(id);
   renderCart();
 }
 
-function renderCart(){
-  cartItemsEl.innerHTML = '';
-  let total=0;
-  Object.values(state.cart).forEach(it=>{
-    total += it.price * it.qty;
-    const row = document.createElement('div');
-    row.className='cart-row';
-    const takeAway = I18N[state.lang].takeAwayTag;
-    const noOnion = I18N[state.lang].noOnionTag;
-    row.innerHTML = `
-      <div style="flex:1">
-        <div style="font-weight:600">${it.name}</div>
-        <div style="color:#666;font-size:0.92rem">${it.qty} ${I18N[state.lang].qtyTimes} ${formatPrice(it.price)}</div>
-        <div class="tags">
-          <span class="tag" data-id="${it.id}" data-tag="${takeAway}">${takeAway}</span>
-          <span class="tag" data-id="${it.id}" data-tag="${noOnion}">${noOnion}</span>
-        </div>
-      </div>
-      <div style="text-align:right">
-        <div class="qty-controls">
-          <button class="small-btn" data-action="dec" data-id="${it.id}">−</button>
-          <div style="min-width:28px;text-align:center">${it.qty}</div>
-          <button class="small-btn" data-action="inc" data-id="${it.id}">+</button>
-        </div>
-        <div style="margin-top:8px"><button class="small-btn remove" data-id="${it.id}">${I18N[state.lang].remove}</button></div>
-      </div>`;
-    cartItemsEl.appendChild(row);
-  });
-
-  cartItemsEl.querySelectorAll('.tag').forEach(t=>{
-    t.addEventListener('click', e=>{
-      const id = e.target.dataset.id;
-      const tag = e.target.dataset.tag;
-      toggleTag(id, tag);
-    });
-  });
-  cartItemsEl.querySelectorAll('[data-action]').forEach(b=>{
-    b.addEventListener('click', e=>{
-      const id = e.target.dataset.id;
-      if(e.target.dataset.action === 'inc') changeQty(id,1); else changeQty(id,-1);
-    });
-  });
-  cartItemsEl.querySelectorAll('.remove').forEach(b=>{
-    b.addEventListener('click', e=>{
-      removeFromCart(e.target.dataset.id);
-    });
-  });
-
-  totalEl.textContent = formatPrice(total);
+function clearCart() {
+  cart.clear();
+  renderCart();
 }
 
-function validateCustomerInfo(){
-  const first = firstNameEl.value.trim();
-  const last = lastNameEl.value.trim();
-  if(!first || !last) { alert(I18N[state.lang].firstName + ' y ' + I18N[state.lang].lastName + ' son obligatorios.'); return false; }
-  if(!consentEl.checked) { alert('Debe aceptar el uso de sus datos para procesar el pedido.'); return false; }
-  return true;
+function renderCart() {
+  const container = document.getElementById('cart-items');
+  container.innerHTML = '';
+
+  if (cart.size === 0) {
+    container.innerHTML = '<p data-i18n="emptyCart">Tu carrito está vacío.</p>';
+  } else {
+    for (const item of cart.values()) {
+      const row = document.createElement('div');
+      row.className = 'cart-row';
+
+      const name = document.createElement('div');
+      name.className = 'cart-name';
+      name.textContent = item.name;
+
+      const qty = document.createElement('div');
+      qty.className = 'cart-qty';
+      qty.textContent = `x${item.qty}`;
+
+      const price = document.createElement('div');
+      price.className = 'cart-price';
+      price.textContent = formatEUR(item.price * item.qty);
+
+      const controls = document.createElement('div');
+      controls.className = 'cart-controls';
+
+      const btnMinus = document.createElement('button');
+      btnMinus.textContent = '-';
+      btnMinus.title = 'Quitar uno';
+      btnMinus.addEventListener('click', () => removeFromCart(item.id));
+
+      const btnPlus = document.createElement('button');
+      btnPlus.textContent = '+';
+      btnPlus.title = 'Añadir uno';
+      btnPlus.addEventListener('click', () => addToCart({ id: item.id, name: item.name, price: item.price }));
+
+      const btnDelete = document.createElement('button');
+      btnDelete.textContent = 'Eliminar';
+      btnDelete.title = 'Eliminar del carrito';
+      btnDelete.addEventListener('click', () => deleteFromCart(item.id));
+
+      controls.append(btnMinus, btnPlus, btnDelete);
+      row.append(name, qty, price, controls);
+      container.appendChild(row);
+    }
+  }
+
+  updateTotalDisplay();
 }
 
-function cartToCSV(){
-  const header = ['Language','Dish Name','Quantity','Tags','Unit Price','Line Total','FirstName','LastName','ConsentGiven','ConsentTimestamp'];
-  const rows = [header];
-  const consentGiven = consentEl.checked ? 'yes' : 'no';
-  const consentTs = new Date().toISOString();
-  Object.values(state.cart).forEach(it=>{
-    const line = [
-      it.lang,
-      it.name.replace(/"/g,'""'),
-      it.qty,
-      it.tags.join(';'),
-      it.price.toFixed(2),
-      (it.price*it.qty).toFixed(2),
-      firstNameEl.value.trim(),
-      lastNameEl.value.trim(),
-      consentGiven,
-      consentTs
-    ];
-    rows.push(line);
-  });
-  return rows.map(r => r.map(c=>`"${c}"`).join(',')).join('\n');
-}
-
-exportBtn.addEventListener('click', ()=>{
-  if(!validateCustomerInfo()) return;
-  const csv = cartToCSV();
-  const blob = new Blob([csv],{type:'text/csv;charset=utf-8;'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url; a.download = 'pedido.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-});
-
-copyBtn.addEventListener('click', async ()=>{
-  if(!validateCustomerInfo()) return;
-  const csv = cartToCSV();
-  try{ await navigator.clipboard.writeText(csv); alert('Pedido copiado al portapapeles.'); }catch(e){ prompt('Copia manualmente el pedido (Ctrl+C):', csv); }
-});
-
-function buildTicketText(){
-  const items = Object.values(state.cart);
+// ====== Botones auxiliares ======
+function buildOrderSummaryText() {
+  const firstName = document.getElementById('firstName')?.value.trim() || '';
+  const lastName = document.getElementById('lastName')?.value.trim() || '';
+  const total = getCartTotalNumber();
   let lines = [];
-  lines.push(`Pedido - ${new Date().toLocaleString()}`);
-  lines.push(`Cliente: ${firstNameEl.value.trim()} ${lastNameEl.value.trim()}`);
-  lines.push('------------------------');
-  let total = 0;
-  items.forEach(it=>{
-    lines.push(`${it.qty}x ${it.name} - €${(it.price*it.qty).toFixed(2)}`);
-    if(it.tags && it.tags.length) lines.push(`  Nota: ${it.tags.join('; ')}`);
-    total += it.qty * it.price;
-  });
-  lines.push('------------------------');
-  lines.push(`Total: €${total.toFixed(2)}`);
+  lines.push(`Pedido Menú Cubano`);
+  lines.push(`Cliente: ${firstName} ${lastName}`);
+  lines.push(`Artículos:`);
+  for (const item of cart.values()) {
+    lines.push(`- ${item.name} x${item.qty} = ${formatEUR(item.price * item.qty)}`);
+  }
+  lines.push(`Total: ${formatEUR(total)}`);
   return lines.join('\n');
 }
 
-function shareViaWhatsApp(){
-  if(!validateCustomerInfo()) return;
-  const text = buildTicketText();
-  const encoded = encodeURIComponent(text);
-  const waUrl = `https://wa.me/?text=${encoded}`;
-  window.open(waUrl, '_blank');
+function setupShareButtons() {
+  const btnWhats = document.getElementById('shareWhatsApp');
+  const btnPrint = document.getElementById('printTicket');
+  const btnCsv = document.getElementById('exportCsv');
+  const btnCopy = document.getElementById('copyClipboard');
+
+  btnWhats.addEventListener('click', () => {
+    const text = buildOrderSummaryText();
+    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
+    window.open(url, '_blank');
+  });
+
+  btnPrint.addEventListener('click', () => {
+    const text = buildOrderSummaryText();
+    const w = window.open('', 'PRINT', 'height=600,width=800');
+    w.document.write('<pre style="font-family:monospace;font-size:14px;">' + text + '</pre>');
+    w.document.close();
+    w.focus();
+    w.print();
+    w.close();
+  });
+
+  btnCsv.addEventListener('click', () => {
+    let csv = 'Producto,Cantidad,Precio unitario,Subtotal\n';
+    for (const item of cart.values()) {
+      csv += `"${item.name}",${item.qty},${item.price.toFixed(2)},${(item.price * item.qty).toFixed(2)}\n`;
+    }
+    csv += `TOTAL,,,${getCartTotalNumber().toFixed(2)}\n`;
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'pedido_menu_cubano.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  btnCopy.addEventListener('click', async () => {
+    const text = buildOrderSummaryText();
+    try {
+      await navigator.clipboard.writeText(text);
+      alert('Pedido copiado al portapapeles.');
+    } catch {
+      alert('No se pudo copiar. Tu navegador puede requerir interacción.');
+    }
+  });
 }
 
-function printTicket(){
-  if(!validateCustomerInfo()) return;
-  const text = buildTicketText();
-  const w = window.open('','_blank','width=400,height=600');
-  w.document.write(`<pre style="font-family:monospace;white-space:pre-wrap">${text}</pre>`);
-  w.document.close(); w.focus(); w.print();
+// ====== Integración PayPal ======
+function renderPaypalButtons() {
+  const container = document.getElementById('paypal-buttons');
+  if (!window.paypal || !container) return;
+
+  // Limpia render anterior
+  container.innerHTML = '';
+
+  if (!canPayWithPaypal()) {
+    setPaypalStatus('Completa tus datos y acepta el consentimiento para habilitar PayPal.', 'warning');
+    return;
+  }
+
+  const total = getCartTotalNumber();
+  const firstName = document.getElementById('firstName').value.trim();
+  const lastName = document.getElementById('lastName').value.trim();
+
+  paypal.Buttons({
+    style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' },
+    createOrder: (data, actions) => {
+      setPaypalStatus('Creando orden…', 'info');
+      return actions.order.create({
+        purchase_units: [{
+          amount: { currency_code: 'EUR', value: total.toFixed(2) },
+          description: 'Pedido Menú Cubano',
+          custom_id: `menu-${Date.now()}`,
+          shipping: { name: { full_name: `${firstName} ${lastName}` } }
+        }],
+        application_context: { brand_name: 'Kuba con K', user_action: 'PAY_NOW' }
+      });
+    },
+    onApprove: (data, actions) => {
+      setPaypalStatus('Procesando pago…', 'info');
+      return actions.order.capture().then(details => {
+        const payer = details.payer?.name?.given_name || 'Cliente';
+        setPaypalStatus(`Pago completado. ¡Gracias, ${payer}!`, 'success');
+        // Acciones post-pago:
+        // 1) Imprimir ticket automáticamente
+        autoPrintTicket();
+        // 2) (Opcional) Guardar en backend: fetch('/orders', { ... })
+        // 3) Vaciar carrito
+        clearCart();
+      });
+    },
+    onCancel: () => setPaypalStatus('Pago cancelado por el usuario.', 'warning'),
+    onError: err => {
+      console.error(err);
+      setPaypalStatus('Error en el pago. Reintenta o usa otro método.', 'error');
+    }
+  }).render('#paypal-buttons');
 }
 
-shareBtn.addEventListener('click', shareViaWhatsApp);
-printBtn.addEventListener('click', printTicket);
+function autoPrintTicket() {
+  const text = buildOrderSummaryText();
+  const w = window.open('', 'PRINT', 'height=600,width=800');
+  w.document.write('<pre style="font-family:monospace;font-size:14px;">' + text + '</pre>');
+  w.document.close();
+  w.focus();
+  w.print();
+  w.close();
+}
 
-// init
-applyTranslations(state.lang);
-renderMenu();
-renderCart();
+// ====== Inicialización ======
+function init() {
+  renderMenu();
+  renderCart();
+  setupShareButtons();
+
+  // Re-render PayPal al cambiar consentimiento/datos
+  const consent = document.getElementById('consentCheckbox');
+  const firstName = document.getElementById('firstName');
+  const lastName = document.getElementById('lastName');
+  [consent, firstName, lastName].forEach(el => {
+    if (el) el.addEventListener('change', renderPaypalButtons);
+    if (el) el.addEventListener('input', renderPaypalButtons);
+  });
+
+  // Primer intento de render de botones (si ya hay datos)
+  renderPaypalButtons();
+}
+
+document.addEventListener('DOMContentLoaded', init);

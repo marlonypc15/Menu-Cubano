@@ -21,3 +21,9 @@ body{font-family:system-ui,Segoe UI,Roboto,Arial;margin:0;background:var(--bg);c
 .customer-info input{width:100%;padding:6px;margin-top:4px}
 .consent{font-size:0.9rem}
 @media (max-width:900px){.layout{grid-template-columns:1fr}.cart{height:auto}}
+
+.paypal-block { margin-top: 12px; }
+.status.info { color: #333; }
+.status.success { color: #0a7; }
+.status.warning { color: #b80; }
+.status.error { color: #c00; }

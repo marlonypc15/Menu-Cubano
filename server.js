@@ -35,3 +35,21 @@ app.get('/api/orders/:id', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=> console.log('API listening on', PORT));
+
+// Dentro de onApprove despues del capture:
+fetch('/orders', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    paypalOrderId: details.id,
+    amount: details.purchase_units?.[0]?.amount?.value,
+    currency: details.purchase_units?.[0]?.amount?.currency_code,
+    payer: details.payer,
+    status: details.status,
+    cart: /* tu carrito */,
+    customer: {
+      firstName: firstName,
+      lastName: lastName
+    }
+  })
+}).catch(console.error);
