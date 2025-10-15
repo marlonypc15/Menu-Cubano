@@ -38,6 +38,7 @@ const translations = {
   }
 };
 
+// ====== Función de traducción ======
 function applyTranslations(lang) {
   const dict = translations[lang] || translations.es;
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -127,4 +128,4 @@ function buildOrderSummaryText() {
   const lastName = document.getElementById('lastName')?.value.trim() || '';
   const total = getCartTotalNumber();
   let lines = [];
-  lines
+  lines.push
