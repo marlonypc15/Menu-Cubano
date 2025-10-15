@@ -20,8 +20,10 @@
   </header>
 
   <main class="layout">
+    <!-- Menú de platos -->
     <section id="menu" class="menu-grid"></section>
 
+    <!-- Carrito -->
     <aside class="cart">
       <h2 id="cartTitle" data-i18n="cartTitle">Tu pedido</h2>
 
@@ -37,7 +39,9 @@
         </label>
         <label class="consent">
           <input id="consentCheckbox" type="checkbox" />
-          <span id="consentText" data-i18n="consentText">Acepto que mis datos se usen para procesar este pedido.</span>
+          <span id="consentText" data-i18n="consentText">
+            Acepto que mis datos se usen para procesar este pedido.
+          </span>
         </label>
       </div>
 
@@ -46,6 +50,7 @@
       <div class="cart-summary">
         <div><strong>Total:</strong> <span id="total">€0.00</span></div>
 
+        <!-- Texto de pedido por adelantado -->
         <div class="preorder-info">
           <p id="preorderText" data-i18n="preorderText">
             ¿Quieres pedir por adelantado? Escríbenos por WhatsApp:
@@ -53,11 +58,13 @@
           </p>
         </div>
 
+        <!-- Botón WhatsApp -->
         <button id="shareWhatsApp" data-i18n="shareWhatsApp">Compartir en WhatsApp</button>
       </div>
     </aside>
   </main>
 
+  <!-- Plantilla de plato -->
   <template id="dish-template">
     <article class="dish-card">
       <h3 class="dish-name"></h3>
@@ -71,6 +78,7 @@
     </article>
   </template>
 
+  <!-- Script principal -->
   <script src="app.js"></script>
 </body>
 </html>
