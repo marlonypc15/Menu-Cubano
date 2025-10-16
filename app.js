@@ -119,12 +119,6 @@ function renderCart() {
     const row = document.createElement("div");
     row.className = "cart-row";
     row.innerHTML = `
-  <div class="cart-name">${d.name[lang]}</div>
-  <div class="cart-qty">x ${qty}</div>
-  <div class="cart-price">= ${formatPriceEUR(d.price * qty, lang)}</div>
-  <div class="cart-controls">
-    <button class="btn-minus">-</button>
-    <button class="btn-plus">+</button>
-    <button class="btn-delete">Eliminar</button>
-  </div>
-`;
+      <div class="cart-name">${d.name[lang]}</div>
+      <div class="cart-qty">x ${qty}</div>
+      <div class="cart-price">= ${formatPriceEUR(d.price * qty, lang)}</div>
