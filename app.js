@@ -251,7 +251,7 @@ function setupShareButtons() {
   if (!btnWhats) return;
   btnWhats.addEventListener("click", () => {
     const text = buildOrderSummaryText();
-    const url = `https://wa.me/34618756992?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/4917656925042?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank");
   });
 }
