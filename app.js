@@ -187,12 +187,11 @@ function renderCart() {
   const totalEl = document.getElementById("total");
   if (!container || !totalEl) return;
 
-  const lang = getCurrentLang();
+  const lang = document.getElementById("lang")?.value || "es";
   container.innerHTML = "";
 
   if (cart.size === 0) {
-    const emptyText = UI_TRANSLATIONS[lang]?.emptyCart || UI_TRANSLATIONS.es.emptyCart;
-    container.innerHTML = `<p data-i18n="emptyCart">${emptyText}</p>`;
+    container.innerHTML = `<p data-i18n="emptyCart">${UI_TRANSLATIONS[lang].emptyCart}</p>`;
     totalEl.textContent = formatPriceEUR(0, lang);
     return;
   }
@@ -205,8 +204,8 @@ function renderCart() {
     row.className = "cart-row";
     row.innerHTML = `
       <div class="cart-name">${d.name[lang]}</div>
-      <div class="cart-qty">x${qty}</div>
-      <div class="cart-price">${formatPriceEUR(d.price * qty, lang)}</div>
+      <div class="cart-qty">x ${qty}</div>
+      <div class="cart-price">= ${formatPriceEUR(d.price * qty, lang)}</div>
       <div class="cart-controls">
         <button class="btn-minus">-</button>
         <button class="btn-plus">+</button>
