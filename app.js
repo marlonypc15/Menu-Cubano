@@ -182,4 +182,4 @@ function getCartTotal() {
 function renderCart() {
   const container = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
-  if (!container || !totalEl
+  if (!container || !total
