@@ -1,4 +1,4 @@
-// Traducciones
+// ====== Traducciones ======
 const UI_TRANSLATIONS = {
   es: {
     languageLabel: "Idioma",
@@ -15,10 +15,39 @@ const UI_TRANSLATIONS = {
     customerLabel: "Cliente",
     totalLabel: "Total"
   },
-  de: { /* traducciones alemán */ },
-  en: { /* traducciones inglés */ }
+  de: {
+    languageLabel: "Sprache",
+    cartTitle: "Deine Bestellung",
+    customerInfoTitle: "Kundendaten",
+    firstName: "Vorname",
+    lastName: "Nachname",
+    consentText: "Ich stimme zu, dass meine Daten zur Bearbeitung dieser Bestellung verwendet werden.",
+    addToCart: "Hinzufügen",
+    emptyCart: "Dein Warenkorb ist leer.",
+    preorderText: "Möchtest du im Voraus bestellen? Schreib uns per WhatsApp:",
+    shareWhatsApp: "Auf WhatsApp teilen",
+    orderTitle: "Bestellung Kubanisches Menü",
+    customerLabel: "Kunde",
+    totalLabel: "Gesamt"
+  },
+  en: {
+    languageLabel: "Language",
+    cartTitle: "Your order",
+    customerInfoTitle: "Customer details",
+    firstName: "First name",
+    lastName: "Last name",
+    consentText: "I agree that my data will be used to process this order.",
+    addToCart: "Add",
+    emptyCart: "Your cart is empty.",
+    preorderText: "Want to order in advance? Send us a message on WhatsApp:",
+    shareWhatsApp: "Share on WhatsApp",
+    orderTitle: "Cuban Menu Order",
+    customerLabel: "Customer",
+    totalLabel: "Total"
+  }
 };
 
+// ====== Utilidades ======
 function getCurrentLang() {
   return document.getElementById("lang")?.value || "es";
 }
@@ -28,7 +57,36 @@ function formatPriceEUR(value, lang = getCurrentLang()) {
   return new Intl.NumberFormat(locale, { style: "currency", currency: "EUR" }).format(value);
 }
 
+// ====== Platos ======
 const DISHES = [
+  {
+    id: "pollo",
+    name: {
+      es: "Pollo en Salsa Criolla con Arroz Amarillo, Tomate y Cebolla",
+      de: "Huhn in Kreolischer Soße mit Gelbem Reis, Tomaten und Zwiebeln",
+      en: "Chicken in Creole Sauce with Yellow Rice, Tomatoes and Onions"
+    },
+    desc: {
+      es: "Tierno pollo cocinado en salsa criolla cubana.",
+      de: "Zartes Hähnchen in kubanischer Soße.",
+      en: "Tender chicken in Cuban Creole sauce."
+    },
+    price: 22.50
+  },
+  {
+    id: "cerdo",
+    name: {
+      es: "Bistec de Cerdo Frito con Congrí, Cebolla Caramelizada, Tomate y Viandas Fritas",
+      de: "Gebratenes Schweinesteak mit Congri, karamellisierten Zwiebeln, Tomate & frittierten Wurzelgemüsen",
+      en: "Fried Pork Steak with Congri, Caramelized Onions, Tomato & Fried Roots"
+    },
+    desc: {
+      es: "Jugoso bistec de cerdo frito con acompañamientos cubanos.",
+      de: "Knuspriges Schweinefleisch mit kubanischen Beilagen.",
+      en: "Crispy pork steak with Cuban sides."
+    },
+    price: 25.50
+  },
   {
     id: "ropa",
     name: {
@@ -37,16 +95,32 @@ const DISHES = [
       en: "Ropa Vieja with White Rice, Red Beans & Tostones"
     },
     desc: {
-      es: "Carne de res desmenuzada en salsa cubana con arroz blanco y frijoles.",
-      de: "Zerfetztes Rindfleisch in kubanischer Soße mit Reis und Bohnen.",
-      en: "Shredded beef in Cuban sauce with rice and beans."
+      es: "Carne de res desmenuzada en salsa cubana.",
+      de: "Zerfetztes Rindfleisch in kubanischer Soße.",
+      en: "Shredded beef in Cuban sauce."
     },
     price: 25.50
+  },
+  {
+    id: "yuca",
+    name: {
+      es: "Opción Vegana: Yuca con Mojo, Cebolla y Tomate",
+      de: "Veggie: Yuca mit Mojo-Soße, Zwiebeln & Tomaten",
+      en: "Veggie: Yuca with Mojo Sauce, Onions & Tomatoes"
+    },
+    desc: {
+      es: "Yuca blanda bañada en mojo de ajo y cítricos.",
+      de: "Yuca mit Knoblauch-Zitrus-Mojo.",
+      en: "Yuca with garlic-citrus mojo."
+    },
+    price: 17.50
   }
 ];
 
+// ====== Estado del carrito ======
 const cart = new Map();
 
+// ====== Traducción de la interfaz ======
 function applyUITranslations(lang = getCurrentLang()) {
   const dict = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.es;
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -55,9 +129,12 @@ function applyUITranslations(lang = getCurrentLang()) {
   });
 }
 
+// ====== Render del menú ======
 function renderMenu() {
   const list = document.getElementById("menu");
   const tpl = document.getElementById("dish-template");
+  if (!list || !tpl) return;
+
   const lang = getCurrentLang();
   list.innerHTML = "";
 
@@ -71,6 +148,7 @@ function renderMenu() {
   });
 }
 
+// ====== Lógica del carrito ======
 function addToCart(dishId) {
   const existing = cart.get(dishId);
   if (existing) existing.qty += 1;
@@ -103,6 +181,8 @@ function getCartTotal() {
 function renderCart() {
   const container = document.getElementById("cart-items");
   const totalEl = document.getElementById("total");
+  if (!container || !totalEl) return;
+
   const lang = getCurrentLang();
   container.innerHTML = "";
 
@@ -122,3 +202,12 @@ function renderCart() {
       <div class="cart-name">${d.name[lang]}</div>
       <div class="cart-qty">x ${qty}</div>
       <div class="cart-price">= ${formatPriceEUR(d.price * qty, lang)}</div>
+      <div class="cart-controls">
+        <button class="btn-minus">-</button>
+        <button class="btn-plus">+</button>
+        <button class="btn-delete">Eliminar</button>
+      </div>
+    `;
+
+    row.querySelector(".btn-minus").addEventListener("click", () => removeFromCart(id));
+   
