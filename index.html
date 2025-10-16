@@ -1,8 +1,8 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Menú Cubano</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -20,65 +20,50 @@
   </header>
 
   <main class="layout">
-    <!-- Menú de platos -->
     <section id="menu" class="menu-grid"></section>
 
-    <!-- Carrito -->
     <aside class="cart">
-      <h2 id="cartTitle" data-i18n="cartTitle">Tu pedido</h2>
+      <h2 data-i18n="cartTitle">Tu pedido</h2>
 
       <div class="customer-info">
-        <h3 id="customerTitle" data-i18n="customerInfoTitle">Datos del cliente</h3>
+        <h3 data-i18n="customerInfoTitle">Datos del cliente</h3>
         <label>
           <span data-i18n="firstName">Nombre</span>
-          <input id="firstName" type="text" required />
+          <input id="firstName" type="text" />
         </label>
         <label>
           <span data-i18n="lastName">Apellidos</span>
-          <input id="lastName" type="text" required />
+          <input id="lastName" type="text" />
         </label>
         <label class="consent">
           <input id="consentCheckbox" type="checkbox" />
-          <span id="consentText" data-i18n="consentText">
-            Acepto que mis datos se usen para procesar este pedido.
-          </span>
+          <span data-i18n="consentText">Acepto que mis datos se usen para procesar este pedido.</span>
         </label>
       </div>
 
       <div id="cart-items" class="cart-items"></div>
-
       <div class="cart-summary">
         <div><strong>Total:</strong> <span id="total">€0.00</span></div>
-
-        <!-- Texto de pedido por adelantado -->
-        <div class="preorder-info">
-          <p id="preorderText" data-i18n="preorderText">
-            ¿Quieres pedir por adelantado? Escríbenos por WhatsApp:
-            <a href="https://wa.me/4917656925042" target="_blank">+49 176 56925042</a>
-          </p>
-        </div>
-
-        <!-- Botón WhatsApp -->
+        <p data-i18n="preorderText">
+          ¿Quieres pedir por adelantado? Escríbenos por WhatsApp:
+          <a href="https://wa.me/4917656925042" target="_blank">+49 176 565925042</a>
+        </p>
         <button id="shareWhatsApp" data-i18n="shareWhatsApp">Compartir en WhatsApp</button>
       </div>
     </aside>
   </main>
 
-  <!-- Plantilla de plato -->
   <template id="dish-template">
     <article class="dish-card">
       <h3 class="dish-name"></h3>
       <p class="dish-desc"></p>
       <div class="dish-footer">
         <div class="price"></div>
-        <div>
-          <button class="add-btn" data-i18n="addToCart">Añadir</button>
-        </div>
+        <button class="add-btn" data-i18n="addToCart">Añadir</button>
       </div>
     </article>
   </template>
 
-  <!-- Script principal -->
   <script src="app.js"></script>
 </body>
 </html>
