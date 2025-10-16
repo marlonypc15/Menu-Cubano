@@ -238,8 +238,7 @@ function buildOrderSummaryText() {
   for (const { id, qty } of cart.values()) {
     const d = DISHES.find(x => x.id === id);
     if (!d) continue;
-    lines.push(`- ${d.name[lang]} x${qty} = ${formatPriceEUR(d.price * qty, lang)}`);
-  }
+    lines.push(`- ${d.name[lang]} x ${qty} = ${formatPriceEUR(d.price * qty, lang)}`);
 
   lines.push(`${dict.totalLabel}: ${formatPriceEUR(getCartTotal(), lang)}`);
   return lines.join("\n");
