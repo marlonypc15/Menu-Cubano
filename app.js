@@ -204,8 +204,8 @@ function renderCart() {
     row.className = "cart-row";
     row.innerHTML = `
       <div class="cart-name">${d.name[lang]}</div>
-      <div class="cart-qty">x ${qty}</div>
-      <div class="cart-price">= ${formatPriceEUR(d.price * qty, lang)}</div>
+      <div class="cart-qty">x ${item.qty}</div>
+<div class="cart-price">= ${formatEUR(item.price * item.qty)}</div>
       <div class="cart-controls">
         <button class="btn-minus">-</button>
         <button class="btn-plus">+</button>
