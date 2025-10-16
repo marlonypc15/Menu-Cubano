@@ -20,8 +20,10 @@
   </header>
 
   <main class="layout">
+    <!-- Lista de platos -->
     <section id="menu" class="menu-grid"></section>
 
+    <!-- Carrito y datos -->
     <aside class="cart">
       <h2 data-i18n="cartTitle">Tu pedido</h2>
 
@@ -42,17 +44,19 @@
       </div>
 
       <div id="cart-items" class="cart-items"></div>
+
       <div class="cart-summary">
-        <div><strong>Total:</strong> <span id="total">€0.00</span></div>
+        <div><strong data-i18n="totalLabel">Total</strong>: <span id="total">€0.00</span></div>
         <p data-i18n="preorderText">
           ¿Quieres pedir por adelantado? Escríbenos por WhatsApp:
-          <a href="https://wa.me/4917656925042" target="_blank">+49 176 565925042</a>
+          <a href="https://wa.me/34618756992" target="_blank">+34 618 756992</a>
         </p>
-        <button id="shareWhatsApp" data-i18n="shareWhatsApp">Compartir en WhatsApp</button>
+        <button id="shareWhatsApp" class="primary" data-i18n="shareWhatsApp">Compartir en WhatsApp</button>
       </div>
     </aside>
   </main>
 
+  <!-- Plantilla de plato -->
   <template id="dish-template">
     <article class="dish-card">
       <h3 class="dish-name"></h3>
