@@ -47,7 +47,7 @@ const UI_TRANSLATIONS = {
   }
 };
 
-// Idioma actual (se sincroniza con el selector)
+// Idioma actual
 function getCurrentLang() {
   return document.getElementById("lang")?.value || "es";
 }
@@ -121,7 +121,7 @@ const DISHES = [
 // ====== Estado del carrito ======
 const cart = new Map(); // id -> { id, qty }
 
-// ====== Traducción de la interfaz (data-i18n) ======
+// ====== Traducción de la interfaz ======
 function applyUITranslations(lang = getCurrentLang()) {
   const dict = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.es;
   document.querySelectorAll("[data-i18n]").forEach(el => {
@@ -134,10 +134,7 @@ function applyUITranslations(lang = getCurrentLang()) {
 function renderMenu() {
   const list = document.getElementById("menu");
   const tpl = document.getElementById("dish-template");
-  if (!list || !tpl) {
-    console.error("Falta #menu o #dish-template en el DOM.");
-    return;
-  }
+  if (!list || !tpl) return;
 
   const lang = getCurrentLang();
   list.innerHTML = "";
@@ -177,103 +174,4 @@ function getCartTotal() {
   let total = 0;
   for (const { id, qty } of cart.values()) {
     const dish = DISHES.find(d => d.id === id);
-    if (dish) total += dish.price * qty;
-  }
-  return total;
-}
-
-function renderCart() {
-  const container = document.getElementById("cart-items");
-  const totalEl = document.getElementById("total");
-  if (!container || !totalEl) return;
-
-  const lang = document.getElementById("lang")?.value || "es";
-  container.innerHTML = "";
-
-  if (cart.size === 0) {
-    container.innerHTML = `<p data-i18n="emptyCart">${UI_TRANSLATIONS[lang].emptyCart}</p>`;
-    totalEl.textContent = formatPriceEUR(0, lang);
-    return;
-  }
-
-  for (const { id, qty } of cart.values()) {
-    const d = DISHES.find(x => x.id === id);
-    if (!d) continue;
-
-    const row = document.createElement("div");
-    row.className = "cart-row";
-    row.innerHTML = `
-      <div class="cart-name">${d.name[lang]}</div>
-      <div class="cart-qty">x ${item.qty}</div>
-<div class="cart-price">= ${formatEUR(item.price * item.qty)}</div>
-      <div class="cart-controls">
-        <button class="btn-minus">-</button>
-        <button class="btn-plus">+</button>
-        <button class="btn-delete">Eliminar</button>
-      </div>
-    `;
-
-    row.querySelector(".btn-minus").addEventListener("click", () => removeFromCart(id));
-    row.querySelector(".btn-plus").addEventListener("click", () => addToCart(id));
-    row.querySelector(".btn-delete").addEventListener("click", () => deleteFromCart(id));
-
-    container.appendChild(row);
-  }
-
-  totalEl.textContent = formatPriceEUR(getCartTotal(), lang);
-}
-
-// ====== WhatsApp ======
-function buildOrderSummaryText() {
-  const lang = getCurrentLang();
-  const dict = UI_TRANSLATIONS[lang] || UI_TRANSLATIONS.es;
-
-  const firstName = document.getElementById("firstName")?.value.trim() || "";
-  const lastName = document.getElementById("lastName")?.value.trim() || "";
-
-  const lines = [];
-  lines.push(dict.orderTitle);
-  lines.push(`${dict.customerLabel}: ${firstName} ${lastName}`);
-
-  for (const { id, qty } of cart.values()) {
-    const d = DISHES.find(x => x.id === id);
-    if (!d) continue;
-    lines.push(`- ${d.name[lang]} x ${qty} = ${formatPriceEUR(d.price * qty, lang)}`);
-
-  lines.push(`${dict.totalLabel}: ${formatPriceEUR(getCartTotal(), lang)}`);
-  return lines.join("\n");
-}
-
-function setupShareButtons() {
-  const btnWhats = document.getElementById("shareWhatsApp");
-  if (!btnWhats) return;
-  btnWhats.addEventListener("click", () => {
-    const text = buildOrderSummaryText();
-    // Sustituye este número si cambias el contacto de WhatsApp
-    const url = `https://wa.me/4917656925042?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank");
-  });
-}
-
-// ====== Inicialización ======
-function init() {
-  // Render inicial
-  applyUITranslations(getCurrentLang());
-  renderMenu();
-  renderCart();
-  setupShareButtons();
-
-  // Cambio de idioma: re-traducir interfaz y re-render del menú y carrito
-  const langSelect = document.getElementById("lang");
-  if (langSelect) {
-    langSelect.addEventListener("change", e => {
-      const lang = e.target.value;
-      applyUITranslations(lang);
-      renderMenu();  // refrescar nombres y descripciones de platos
-      renderCart();  // refrescar nombres en el carrito y formato de precios
-    });
-  }
-}
-
-// Arranque cuando el DOM está listo
-document.addEventListener("DOMContentLoaded", init);
+    if (dish) total +=
